@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "6FA4CFD3-C031-4985-AB89-38194563A842"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74A879E3-9918-4733-A80D-8C68C113285A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TaskManagementApp/View/Home.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "weekView(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "74A879E3-9918-4733-A80D-8C68C113285A - 15ef3cbf1eb5b6bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaskManagementApp.Home.pageinateWeek() -&gt; ()"
+                  moduleName = "TaskManagementApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dm/Documents/iOSDEV/TaskManagementApp/TaskManagementApp/View/Home.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "175"
+                  endingLineNumber = "175"
+                  offsetFromSymbolStart = "3840">
+               </Location>
+               <Location
+                  uuid = "74A879E3-9918-4733-A80D-8C68C113285A - afec61bd46ddf747"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (CoreGraphics.CGFloat) -&gt; () in closure #1 (SwiftUI.GeometryProxy) -&gt; &lt;&lt;opaque return type of SwiftUI.View.onPreferenceChange&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.PreferenceKey, &#x3c4;_1_0.Value: Swift.Equatable&gt;(_: &#x3c4;_1_0.Type, perform: (&#x3c4;_1_0.Value) -&gt; ()) -&gt; some&gt;&gt;.0 in closure #2 () -&gt; SwiftUI.GeometryReader&lt;&lt;&lt;opaque return type of SwiftUI.View.onPreferenceChange&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.PreferenceKey, &#x3c4;_1_0.Value: Swift.Equatable&gt;(_: &#x3c4;_1_0.Type, perform: (&#x3c4;_1_0.Value) -&gt; ()) -&gt; some&gt;&gt;.0&gt; in TaskManagementApp.Home.weekView(Swift.Array&lt;Foundation.Date.WeekDay&gt;) -&gt; some"
+                  moduleName = "TaskManagementApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dm/Documents/iOSDEV/TaskManagementApp/TaskManagementApp/View/Home.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "175"
+                  endingLineNumber = "175"
+                  offsetFromSymbolStart = "236">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
