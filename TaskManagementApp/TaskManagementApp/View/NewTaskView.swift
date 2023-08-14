@@ -9,9 +9,10 @@ import SwiftUI
 
 struct NewTaskView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var context
     @State private var taskTitle: String = ""
     @State private var taskDate: Date = .init()
-    @State private var taskColor: Color = .accentColor
+    @State private var taskColor: String = "task1"
     var body: some View {
         VStack(alignment: .leading, spacing: 15) { 
             Button(action: {
@@ -54,11 +55,13 @@ struct NewTaskView: View {
                         .font(.caption)
                         .foregroundStyle(.gray)
                     
-                    let colors: [Color] = [.task1, .task2, .task3, .task4]
-                    HStack(spacing: 0) { 
+                    let colors: [String] = (1...5).compactMap { index -> String in
+                        return "task\(index)"
+                    }
+                    HStack(spacing: 0) {
                         ForEach(colors, id:\.self) { color in
                             Circle()
-                                .fill(color)
+                                .fill(Color(color))
                                 .frame(width: 20, height: 20)
                                 .background(contentOf: { 
                                     Circle()
@@ -78,14 +81,24 @@ struct NewTaskView: View {
             }
             .padding(.top, 5)
             Spacer(minLength: 0)
-            Button(action: {}, label: {
+            Button(action: {
+                let task = Task(taskTitle: taskTitle, creationDate: taskDate ,tint: taskColor)
+                do {
+                    context.insert(task )
+                    try context.save()
+                    
+                    dismiss()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }, label: {
                 Text("Create Task")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundStyle(.black)
                     .hSpacing(.center)
                     .padding(.vertical, 12)
-                    .background(taskColor, in: RoundedRectangle(cornerRadius: 12))
+                    .background(Color(taskColor), in: RoundedRectangle(cornerRadius: 12))
             })
             .disabled(taskTitle == "")
             .opacity(taskTitle == "" ? 0.5 : 1)
