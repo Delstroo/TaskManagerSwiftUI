@@ -22,7 +22,7 @@ struct TasksView: View {
         }
         
         let sortDescriptor = [
-            SortDescriptor(\Task.creationDate, order: .reverse)
+            SortDescriptor(\Task.creationDate, order: .forward)
         ]
         
         self._tasks = Query(filter: predicate, sort: sortDescriptor, animation: .snappy)

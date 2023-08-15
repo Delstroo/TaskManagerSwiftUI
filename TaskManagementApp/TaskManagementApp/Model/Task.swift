@@ -29,6 +29,10 @@ class Task: Identifiable {
         case "task2": return .task2
         case "task3": return .task3
         case "task4": return .task4
+        case "task5": return .task5
+        case "task6": return .task6
+        case "task7": return .task7
+        case "task8": return .task8
         default: return .blue
         }
     }
