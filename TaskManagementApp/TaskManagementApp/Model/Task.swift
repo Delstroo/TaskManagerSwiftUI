@@ -6,24 +6,33 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct Task: Identifiable {
-    var id: UUID = .init()
+@Model
+class Task: Identifiable {
+    var id: UUID
     var taskTitle: String
-    var creationDate: Date = .init()
-    var isCompleted: Bool = false
-    var tint: Color
-}
-
-var sampleTasks: [Task] = [
-    .init(taskTitle: "Record Video", creationDate: .updateHour(-5), isCompleted: true, tint: .task1),
-    .init(taskTitle: "Redesign Website", creationDate: .updateHour(-3), tint: .task2),
-    .init(taskTitle: "Go for a Walk", creationDate: .updateHour(-4), tint: .task3),
-    .init(taskTitle: "Edit Video", creationDate: .updateHour(0), isCompleted: true, tint: .task1),
-    .init(taskTitle: "Publis Video", creationDate: .updateHour(2), isCompleted: true, tint: .task4),
-    .init(taskTitle: "Tweet about new Video!", creationDate: .updateHour(1), tint: .task3)
+    var creationDate: Date
+    var isCompleted: Bool
+    var tint: String
     
-]
+    init(id: UUID = .init(), taskTitle: String, creationDate: Date = .init(), isCompleted: Bool = false, tint: String) {
+        self.id = id
+        self.taskTitle = taskTitle
+        self.creationDate = creationDate
+        self.isCompleted = isCompleted
+        self.tint = tint
+    }
+    var tintColor: Color {
+        switch tint {
+        case "task1": return .task1
+        case "task2": return .task2
+        case "task3": return .task3
+        case "task4": return .task4
+        default: return .blue
+        }
+    }
+}
 
 extension Date {
     static func updateHour(_ value: Int) -> Date {
