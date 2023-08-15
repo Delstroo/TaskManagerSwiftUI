@@ -46,5 +46,9 @@ extension Color {
     static let task2 = Color("task2")
     static let task3 = Color("task3")
     static let task4 = Color("task4")
+    static let task5 = Color("task5")
+    static let task6 = Color("task6")
+    static let task7 = Color("task7")
+    static let task8 = Color("task8")
 
 }

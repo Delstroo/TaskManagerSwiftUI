@@ -13,8 +13,13 @@ struct NewTaskView: View {
     @State private var taskTitle: String = ""
     @State private var taskDate: Date = .init()
     @State private var taskColor: String = "task1"
+    
+    let colors: [String] = (1...8).compactMap { index -> String in
+        return "task\(index)"
+    }
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) { 
+        VStack(alignment: .leading, spacing: 15) {
             Button(action: {
                 dismiss()
             }, label: {
@@ -22,8 +27,10 @@ struct NewTaskView: View {
                     .font(.title)
                     .tint(.red)
             })
-            .hSpacing(.leading)
-            VStack(alignment: .leading, spacing: 8) { 
+            .padding(.leading, -2)
+            .padding(.top)
+
+            VStack(alignment: .leading, spacing: 8) {
                 Text("Task Title")
                     .font(.caption)
                     .foregroundStyle(.gray)
@@ -35,56 +42,35 @@ struct NewTaskView: View {
             }
             .padding(.top, 5)
             
-            HStack(spacing: 12) { 
-                VStack(alignment: .leading, spacing: 8) { 
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text("Task Date")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    
-                    
                     
                     DatePicker("", selection: $taskDate)
                         .datePickerStyle(.compact)
                         .scaleEffect(0.9, anchor: .leading)
                 }
                 .padding(.top, 5)
-                //Give some Space for tapping
                 .padding(.trailing, -15)
-                VStack(alignment: .leading, spacing: 8) { 
+                
+                VStack(alignment: .leading, spacing: 8) {
                     Text("Task Color")
                         .font(.caption)
                         .foregroundStyle(.gray)
                     
-                    let colors: [String] = (1...5).compactMap { index -> String in
-                        return "task\(index)"
-                    }
-                    HStack(spacing: 0) {
-                        ForEach(colors, id:\.self) { color in
-                            Circle()
-                                .fill(Color(color))
-                                .frame(width: 20, height: 20)
-                                .background(contentOf: { 
-                                    Circle()
-                                        .stroke(lineWidth: 2)
-                                        .opacity(taskColor == color ? 1 : 0)
-                                })
-                                .hSpacing(.center)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    withAnimation(.linear) {
-                                        taskColor = color
-                                    }
-                                }
-                        }
-                    }
+                    ColorCirclesRow(colors: colors, selectedColor: $taskColor)
                 }
             }
             .padding(.top, 5)
+            .padding([.leading, .trailing], -8)
             Spacer(minLength: 0)
+            
             Button(action: {
-                let task = Task(taskTitle: taskTitle, creationDate: taskDate ,tint: taskColor)
+                let task = Task(taskTitle: taskTitle, creationDate: taskDate, tint: taskColor)
                 do {
-                    context.insert(task )
+                    context.insert(task)
                     try context.save()
                     
                     dismiss()
@@ -100,12 +86,57 @@ struct NewTaskView: View {
                     .padding(.vertical, 12)
                     .background(Color(taskColor), in: RoundedRectangle(cornerRadius: 12))
             })
-            .disabled(taskTitle == "")
-            .opacity(taskTitle == "" ? 0.5 : 1)
+            .disabled(taskTitle.isEmpty)
+            .opacity(taskTitle.isEmpty ? 0.5 : 1)
         }
         .padding(15)
     }
 }
+
+struct ColorCirclesRow: View {
+    let colors: [String]
+    @Binding var selectedColor: String
+
+    var body: some View {
+        VStack {
+            HStack(spacing: 0) {
+                ForEach(colors.prefix(colors.count/2), id: \.self) { color in
+                    CircleView(color: color, selectedColor: $selectedColor)
+                }
+            }
+
+            HStack(spacing: 0) {
+                ForEach(colors.suffix(from: colors.count/2), id: \.self) { color in
+                    CircleView(color: color, selectedColor: $selectedColor)
+                }
+            }
+        }
+    }
+}
+
+struct CircleView: View {
+    let color: String
+    @Binding var selectedColor: String
+
+    var body: some View {
+        Circle()
+            .fill(Color(color))
+            .frame(width: 20, height: 20)
+            .background(
+                Circle()
+                    .stroke(lineWidth: 2)
+                    .opacity(selectedColor == color ? 1 : 0)
+            )
+            .padding(.horizontal)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                withAnimation(.linear) {
+                    selectedColor = color
+                }
+            }
+    }
+}
+
 
 struct NewTaskView_Previews: PreviewProvider {
     static var previews: some View {

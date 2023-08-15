@@ -10,19 +10,17 @@ import SwiftUI
 /// Date Extensions needed for Building UI
 extension Date {
     func format(_ format: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
-        
-        return formatter.string(from: self)
-    } 
-    
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
     
     /// Checking whether the data is today
     var isToday: Bool {
         return Calendar.current.isDateInToday(self)
     }
     
-        /// Chekcing if the date is Same Hour
+    /// Chekcing if the date is Same Hour
     var isSameHour: Bool {
         return Calendar.current.compare(self, to: .init(), toGranularity: .hour) == .orderedSame
     }
@@ -42,7 +40,7 @@ extension Date {
         guard let startOfWeek = weekForDate?.start else { return [] }
         
         
-        (0..<7).forEach { index in 
+        (0..<7).forEach { index in
             if let weekDay = calendar.date(byAdding: .day, value: index, to: startOfWeek) {
                 week.append(.init(date: weekDay))
             }
