@@ -51,9 +51,9 @@ struct NewTaskView: View {
                     DatePicker("", selection: $taskDate)
                         .datePickerStyle(.compact)
                         .scaleEffect(0.9, anchor: .leading)
+                        .labelsHidden()
                 }
                 .padding(.top, 5)
-                .padding(.trailing, -15)
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Task Color")
@@ -96,28 +96,29 @@ struct NewTaskView: View {
 struct ColorCirclesRow: View {
     let colors: [String]
     @Binding var selectedColor: String
-
+    
     var body: some View {
         VStack {
-            HStack(spacing: 0) {
+            HStack(spacing: -10) {
                 ForEach(colors.prefix(colors.count/2), id: \.self) { color in
                     CircleView(color: color, selectedColor: $selectedColor)
                 }
             }
-
-            HStack(spacing: 0) {
+            
+            HStack(spacing: -10) {
                 ForEach(colors.suffix(from: colors.count/2), id: \.self) { color in
                     CircleView(color: color, selectedColor: $selectedColor)
                 }
             }
         }
+        .frame(width: 100)
     }
 }
 
 struct CircleView: View {
     let color: String
     @Binding var selectedColor: String
-
+    
     var body: some View {
         Circle()
             .fill(Color(color))
