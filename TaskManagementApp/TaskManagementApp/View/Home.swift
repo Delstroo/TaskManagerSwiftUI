@@ -61,7 +61,7 @@ struct Home: View {
                 .presentationDetents([.height(300)])
                 .interactiveDismissDisabled()
                 .presentationCornerRadius(30)
-                .presentationBackground(Color.offWhite)
+                .presentationBackground(Color.white)
         }
     }
 
