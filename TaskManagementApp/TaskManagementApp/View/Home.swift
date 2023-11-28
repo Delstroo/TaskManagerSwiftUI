@@ -99,7 +99,7 @@ struct Home: View {
         .hSpacing(.leading)
         .overlay(alignment: .topTrailing, content: { 
             Button(action: {}) {
-                Image("pic")
+                Image(systemName: "gear")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 45, height: 45)
