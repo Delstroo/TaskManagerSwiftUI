@@ -14,6 +14,7 @@ struct Home: View {
     @State private var currentWeekIndex: Int = 1
     @State private var createWeek: Bool = false
     @State private var createNewTask: Bool = false 
+    @State private var settingsPressed: Bool = false
     /// Animation Namespace
     @Namespace private var animation
     var body: some View {
@@ -63,6 +64,9 @@ struct Home: View {
                 .presentationCornerRadius(30)
                 .presentationBackground(Color.white)
         }
+        .sheet(isPresented: $settingsPressed) {
+            SettingsView()
+        }
     }
 
     
@@ -98,7 +102,9 @@ struct Home: View {
         }
         .hSpacing(.leading)
         .overlay(alignment: .topTrailing, content: { 
-            Button(action: {}) {
+            Button(action: {
+                settingsPressed.toggle()
+            }) {
                 Image(systemName: "gear")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
