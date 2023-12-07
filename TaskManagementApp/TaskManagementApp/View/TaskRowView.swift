@@ -58,7 +58,7 @@ struct TaskRowView: View {
         if task.isCompleted {
             return .green
         }
-        return task.creationDate.isSameHour ? .darkBlue : (task.creationDate.isPast) ? .red : .black
+        return task.creationDate.isSameHour ? .hintColor : (task.creationDate.isPast) ? .red : .black
     }
 }
 

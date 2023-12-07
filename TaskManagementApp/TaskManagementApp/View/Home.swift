@@ -13,8 +13,14 @@ struct Home: View {
     @State private var weekSlider: [[Date.WeekDay]] = []
     @State private var currentWeekIndex: Int = 1
     @State private var createWeek: Bool = false
-    @State private var createNewTask: Bool = false 
+    @State private var createNewTask: Bool = false
     @State private var settingsPressed: Bool = false
+    @State private var hintColor: Color = {
+        let storedColor = UserDefaults.standard.string(forKey: "hintColor") ?? "darkBlue"
+        return Color(storedColor)
+    }()
+    @AppStorage("hintColor") var storedColor: String = "darkBlue"
+
     /// Animation Namespace
     @Namespace private var animation
     var body: some View {
@@ -38,26 +44,34 @@ struct Home: View {
                     .fontWeight(.semibold)
                     .foregroundStyle(.white)
                     .frame(width: 55, height: 55)
-                    .background(Color.darkBlue.shadow(.drop(color: .black.opacity(0.25), radius: 5, x: 10, y: 10)), in: Circle())
+                    .background(hintColor.shadow(.drop(color: .black.opacity(0.25), radius: 5, x: 10, y: 10)), in: Circle())
             })
             .padding(15)
         })
         .onAppear {
+            if let storedColor = UserDefaults.standard.string(forKey: "hintColor"),
+               storedColor != hintColor.description {
+                hintColor = Color(storedColor)
+            }
+            
             if weekSlider.isEmpty {
                 let currentWeek = Date().fetchWeek()
-
+                
                 if let firstDate = currentWeek.first?.date {
                     weekSlider.append(firstDate.createPrevioustWeek())
                 }
-
+                
                 weekSlider.append(currentWeek) // Use `contentsOf` to append an array
-
+                
                 if let lastDate = currentWeek.last?.date {
                     weekSlider.append(lastDate.createNextWeek())
                 }
             }
         }
-        .sheet(isPresented: $createNewTask) { 
+        .onChange(of: storedColor) { newValue in
+                hintColor = Color(newValue)
+        }
+        .sheet(isPresented: $createNewTask) {
             NewTaskView()
                 .presentationDetents([.height(300)])
                 .interactiveDismissDisabled()
@@ -68,14 +82,14 @@ struct Home: View {
             SettingsView()
         }
     }
-
+    
     
     @ViewBuilder
     func headerView(currentDate: Date) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 5) {
                 Text(currentDate.format("MMMM"))
-                    .foregroundColor(.darkBlue)
+                    .foregroundColor(hintColor)
                 
                 Text(currentDate.format("YYYY"))
                     .foregroundColor(.gray)
@@ -88,9 +102,9 @@ struct Home: View {
                 .foregroundColor(.gray)
             
             /// Week SLider
-            TabView(selection: $currentWeekIndex) { 
-                ForEach(weekSlider.indices, id: \.self) { index in 
-                    let week = weekSlider[index]   
+            TabView(selection: $currentWeekIndex) {
+                ForEach(weekSlider.indices, id: \.self) { index in
+                    let week = weekSlider[index]
                     weekView(week)
                         .padding(.horizontal, 15)
                         .tag(index)
@@ -101,9 +115,10 @@ struct Home: View {
             .frame(height: 90)
         }
         .hSpacing(.leading)
-        .overlay(alignment: .topTrailing, content: { 
+        .overlay(alignment: .topTrailing, content: {
             Button(action: {
                 settingsPressed.toggle()
+                UserDefaults.standard.setValue("darkBlue", forKey: "hintColor")
             }) {
                 Image(systemName: "gear")
                     .resizable()
@@ -142,8 +157,8 @@ struct Home: View {
                             ZStack {
                                 if isSameDate(day.date, currentDate) {
                                     Circle()
-                                        .fill(Color.darkBlue)
-//                                        .matchedGeometryEffect(id: "INDICATOR", in: animation)
+                                        .fill(hintColor)
+                                    //                                        .matchedGeometryEffect(id: "INDICATOR", in: animation)
                                 }
                                 
                                 if day.date.isToday {
