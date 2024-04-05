@@ -14,6 +14,7 @@ struct Home: View {
     @State private var currentWeekIndex: Int = 1
     @State private var createWeek: Bool = false
     @State private var createNewTask: Bool = false
+    @State private var openSettings: Bool = false
     @State private var settingsPressed: Bool = false
     @State private var hintColor: Color = {
         let storedColor = UserDefaults.standard.string(forKey: "hintColor") ?? "darkBlue"
@@ -115,12 +116,11 @@ struct Home: View {
             .frame(height: 90)
         }
         .hSpacing(.leading)
-        .overlay(alignment: .topTrailing, content: {
+        .overlay(alignment: .topTrailing, content: { 
             Button(action: {
-                settingsPressed.toggle()
-                UserDefaults.standard.setValue("darkBlue", forKey: "hintColor")
+                openSettings.toggle()
             }) {
-                Image(systemName: "gear")
+                Image("pic")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 45, height: 45)
