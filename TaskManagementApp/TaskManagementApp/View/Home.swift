@@ -13,7 +13,8 @@ struct Home: View {
     @State private var weekSlider: [[Date.WeekDay]] = []
     @State private var currentWeekIndex: Int = 1
     @State private var createWeek: Bool = false
-    @State private var createNewTask: Bool = false 
+    @State private var createNewTask: Bool = false
+    @State private var openSettings: Bool = false
     /// Animation Namespace
     @Namespace private var animation
     var body: some View {
@@ -98,7 +99,9 @@ struct Home: View {
         }
         .hSpacing(.leading)
         .overlay(alignment: .topTrailing, content: { 
-            Button(action: {}) {
+            Button(action: {
+                openSettings.toggle()
+            }) {
                 Image("pic")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
