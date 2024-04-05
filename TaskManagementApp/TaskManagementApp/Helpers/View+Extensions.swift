@@ -41,7 +41,7 @@ extension Font {
 
 extension Color {
     static let offWhite = Color("offWhite")
-    static let darkBlue = Color("darkBlue")
+    static let hintColor = Color(UserDefaults.standard.string(forKey: "hintColor") ?? "darkBlue")
     static let task1 = Color("task1")
     static let task2 = Color("task2")
     static let task3 = Color("task3")

@@ -1,0 +1,54 @@
+# Xcode
+.DS_Store
+build/
+DerivedData/
+/*.xcworkspace
+/*.xcuserdatad
+/*.xcuserdata
+/*.UserInterfaceState.xcuserstate
+
+# Swift Package Manager
+/*.swiftpm
+/Package.resolved
+
+# CocoaPods
+/Pods
+/*.xcconfig
+*.xcscheme
+*.xcworkspace
+
+# Carthage
+/Carthage/Build
+
+# fastlane
+/fastlane/report.xml
+/fastlane/Preview.html
+/fastlane/screenshots
+/fastlane/test_output
+/fastlane/.env
+
+# AppCode
+.idea/
+
+# Android Studio
+*.iml
+/.idea/
+/.gradle/
+/local.properties
+/.captures/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+
+# Swift Package Manager - build folder
+.build/
+
+# CocoaPods - build folder
+/Pods/
+
+# Xcode
+xcuserdata/
